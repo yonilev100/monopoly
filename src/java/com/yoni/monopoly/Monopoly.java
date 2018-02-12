@@ -1,5 +1,9 @@
 package com.yoni.monopoly;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Monopoly {
 
     private final Engine engine;
@@ -10,7 +14,26 @@ public class Monopoly {
 
 
     public void run() {
-        engine.run();
+        System.out.println("Game started");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        boolean terminated = false;
+        String line = null;
+        do {
+            try {
+                line = reader.readLine();
+                terminated = line == null || line.equals("quit");
+
+                if (!terminated) {
+                    engine.run();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } while (!terminated);
+
+        System.out.println("Exited...");
     }
 
 
