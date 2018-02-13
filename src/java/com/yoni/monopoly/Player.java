@@ -1,14 +1,18 @@
 package com.yoni.monopoly;
 
 public class Player {
-    String color;
-    int index = 0;
-    public Player(String color) {
-        this.color = color;
+
+    private String name;
+    private int index = 1;
+
+    public Player(String name) {
+        this.name = name;
+
+        index = 0;
     }
 
-    public String getColor() {
-        return color;
+    public String getName() {
+        return name;
     }
 
     public void setIndex(int index) {

@@ -9,8 +9,9 @@ public class Engine {
 
     private final DiceManager diceManager;
     private final ArrayList<Player> playerList;
-    String locations[] = {"Ben-gurion", "Bialik", "Negba", "Hevrat te'ufa", "Otobus", "Hanasi", "Alanbi", "Dereh-hayam"};
-    int playerIndex = 0;
+    private final Board board;
+
+    private int currentPlayerIndex = 0;
 
     public Engine() {
         diceManager = new DiceManager();
@@ -20,22 +21,22 @@ public class Engine {
         playerList.add(new Player("green"));
         playerList.add(new Player("blue"));
         playerList.add(new Player("yellow"));
+        board = new Board();
     }
 
 
     public void run() {
-        System.out.println("Running single turn");
-        Player player = playerList.get(playerIndex);
+        Player player = playerList.get(currentPlayerIndex);
+
+        System.out.println("Player " + player.getName() + " started his turn");
 
         DiceResult diceResult = diceManager.throwDice();
         System.out.println("Throwing dice, result = " + diceResult.getDice1() + ", " + diceResult.getDice2());
-        System.out.println("the " + player.getColor() + " player moved " + diceResult.getDice1() + ", " + diceResult.getDice2());
-        player.setIndex((player.getIndex() + diceResult.getDice1() + diceResult.getDice2()) % 8);
-        System.out.println("the player is on " + locations[player.getIndex()]);
-        playerIndex++;
-        if (playerIndex >= 4) {
-            playerIndex = 0;
-            playerIndex++;
-        }
+        System.out.println("The " + player.getName() + " player moves " + diceResult.getTotal());
+
+        player.setIndex((player.getIndex() + diceResult.getTotal()) % board.getNumberOfLocations());
+        System.out.println("the player is on " + board.getLocationAt(player.getIndex()));
+
+        currentPlayerIndex = (currentPlayerIndex + 1) % playerList.size();
     }
 }

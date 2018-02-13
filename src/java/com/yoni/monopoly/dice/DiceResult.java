@@ -18,4 +18,8 @@ public class DiceResult {
     public int getDice2() {
         return dice2;
     }
+
+    public int getTotal() {
+        return dice1 + dice2;
+    }
 }
