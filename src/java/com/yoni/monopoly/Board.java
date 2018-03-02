@@ -15,4 +15,12 @@ public class Board {
     public Place getLocationAt(int index) {
         return locations[index];
     }
+
+    public void movePlayer(Player player, int diceResult) {
+        player.setIndex((player.getIndex() + diceResult) % locations.length);
+    }
+
+    public Place getLocationOf(Player player) {
+        return locations[player.getIndex()];
+    }
 }

@@ -17,10 +17,11 @@ public class Engine {
         diceManager = new DiceManager();
 
         playerList = new ArrayList<>();
-        playerList.add(new Player("red"));
-        playerList.add(new Player("green"));
-        playerList.add(new Player("blue"));
-        playerList.add(new Player("yellow"));
+        playerList.add(new Player("red", new AggressiveProfile()));
+        playerList.add(new Player("green", new CautiousProfile()));
+        playerList.add(new Player("blue", new CautiousProfile()));
+        playerList.add(new Player("yellow", new CautiousProfile()));
+
         board = new Board();
     }
 
@@ -28,25 +29,43 @@ public class Engine {
     public void run() {
         Player player = playerList.get(currentPlayerIndex);
 
-        System.out.println("Player " + player.getName() + " started his turn");
+        System.out.println("Player " + player.getName() + " started his turn - he has " + player.getMoney() + "$.");
 
         DiceResult diceResult = diceManager.throwDice();
         System.out.println("Throwing dice, result = " + diceResult.getDice1() + ", " + diceResult.getDice2());
         System.out.println("The " + player.getName() + " player moves " + diceResult.getTotal());
-        player.setIndex((player.getIndex() + diceResult.getTotal()) % board.getNumberOfLocations());
-        Place place = board.getLocationAt(player.getIndex());
-        System.out.println("the player is on " + place.getName());
+        board.movePlayer(player, diceResult.getTotal());
+
+        Place place = board.getLocationOf(player);
+        System.out.println("The player has landed on " + place.getName());
+
+        if (place.getBelongsTo() == null && player.getMoney() >= place.getCost()) {
+            if (player.getProfile().willPlayerBuyPlace(player, place)) {
+                System.out.println("The player decides to buy it");
+                player.buyPlace(place);
+            } else {
+                System.out.println("The player decides not to buy it");
+            }
+        } else {
+            System.out.println(place.getBelongsTo().getName() + " has it");
+        }
+
         currentPlayerIndex = (currentPlayerIndex + 1) % playerList.size();
-        for(Player playerChecked : playerList){
-            if(playerChecked.DoIHaveIt(place)){
-                System.out.println(playerChecked.getName()+" have it");
-                return;
+    }
+
+    public void printDebug() {
+        for (Player player : playerList) {
+            System.out.println("******************** DEBUG *************************");
+            System.out.println("Information about " + player.getName() + ":");
+            System.out.println("Money: " + player.getMoney() + "$");
+            System.out.println("Places:");
+            if (player.getPlaces().isEmpty()) {
+                System.out.println("None");
+            } else {
+                for (Place place : player.getPlaces()) {
+                    System.out.println(place.getName());
+                }
             }
         }
-        System.out.println("the player decides to buy it");
-        player.addToMyPlaces(place);
-        System.out.println("he had "+player.getMoney()+"$$. \n ");
-        player.setMoney(player.getMoney()-place.getCost());
-        System.out.println("now he have " + player.getMoney()+"$$");
     }
 }

@@ -6,13 +6,15 @@ public class Player {
     private int money;
     private String name;
     private int index = 1;
-    private ArrayList<Place> whatMine;
+    private ArrayList<Place> places;
+    private Profile profile;
 
-    public Player(String name) {
+    public Player(String name, Profile profile) {
         this.name = name;
-        whatMine = new ArrayList<>();
+        places = new ArrayList<>();
         index = 0;
         this.money = 1000;
+        this.profile = profile;
     }
 
     public int getMoney() {
@@ -35,13 +37,21 @@ public class Player {
         return index;
     }
 
-    public void addToMyPlaces(Place place) {
-        whatMine.add(place);
+    public void buyPlace(Place place) {
+        places.add(place);
+        place.setBelongsTo(this);
+        money -= place.getCost();
+
+        System.out.println("Player " + name + " buys " + place.getName() + " and pays " + place.getCost() + ". Now he has " + money + "$.");
     }
 
-    public boolean DoIHaveIt(Place placeToCheck) {
-        return whatMine.contains(placeToCheck);
+
+    public ArrayList<Place> getPlaces() {
+        return places;
     }
 
 
+    public Profile getProfile() {
+        return profile;
+    }
 }

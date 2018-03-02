@@ -26,7 +26,11 @@ public class Monopoly {
                 terminated = line == null || line.equals("quit");
 
                 if (!terminated) {
-                    engine.run();
+                    if (line.equals("info")) {
+                        engine.printDebug();
+                    } else {
+                        engine.run();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
