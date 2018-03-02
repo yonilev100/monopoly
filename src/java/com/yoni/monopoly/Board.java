@@ -2,17 +2,17 @@ package com.yoni.monopoly;
 
 public class Board {
 
-    private final String locations[];
+    private final Place locations[];
 
     public Board() {
-        locations = new String[] {"Ben-gurion", "Bialik", "Negba", "Hevrat te'ufa", "Otobus", "Hanasi", "Alanbi", "Dereh-hayam"};
+        locations = new Place[] {new Place("Ben-gurion",100), new Place("Bialik",30), new Place("Negba",80), new Place("Hevrat te'ufa",110), new Place("Otobus",60), new Place("Hanasi",200), new Place("Alanbi",15), new Place("Dereh-hayam",100)};
     }
 
     public int getNumberOfLocations() {
         return locations.length;
     }
 
-    public String getLocationAt(int index) {
+    public Place getLocationAt(int index) {
         return locations[index];
     }
 }

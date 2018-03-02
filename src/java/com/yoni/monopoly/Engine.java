@@ -33,10 +33,20 @@ public class Engine {
         DiceResult diceResult = diceManager.throwDice();
         System.out.println("Throwing dice, result = " + diceResult.getDice1() + ", " + diceResult.getDice2());
         System.out.println("The " + player.getName() + " player moves " + diceResult.getTotal());
-
         player.setIndex((player.getIndex() + diceResult.getTotal()) % board.getNumberOfLocations());
-        System.out.println("the player is on " + board.getLocationAt(player.getIndex()));
-
+        Place place = board.getLocationAt(player.getIndex());
+        System.out.println("the player is on " + place.getName());
         currentPlayerIndex = (currentPlayerIndex + 1) % playerList.size();
+        for(Player playerChecked : playerList){
+            if(playerChecked.DoIHaveIt(place)){
+                System.out.println(playerChecked.getName()+" have it");
+                return;
+            }
+        }
+        System.out.println("the player decides to buy it");
+        player.addToMyPlaces(place);
+        System.out.println("he had "+player.getMoney()+"$$. \n ");
+        player.setMoney(player.getMoney()-place.getCost());
+        System.out.println("now he have " + player.getMoney()+"$$");
     }
 }
