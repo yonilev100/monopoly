@@ -1,26 +1,35 @@
 package com.yoni.monopoly;
 
+import java.util.ArrayList;
+
 public class Board {
 
-    private final Place locations[];
+    private ArrayList<Place> locations;
 
     public Board() {
-        locations = new Place[] {new Place("Ben-gurion",100), new Place("Bialik",30), new Place("Negba",80), new Place("Hevrat te'ufa",110), new Place("Otobus",60), new Place("Hanasi",200), new Place("Alanbi",15), new Place("Dereh-hayam",100)};
+        CardsLoader cardsLoader = new CardsLoader();
+        locations = new ArrayList<>(cardsLoader.load());
     }
-
     public int getNumberOfLocations() {
-        return locations.length;
+        return locations.size();
     }
 
     public Place getLocationAt(int index) {
-        return locations[index];
+        return locations.get(index);
     }
 
     public void movePlayer(Player player, int diceResult) {
-        player.setIndex((player.getIndex() + diceResult) % locations.length);
+        player.setIndex((player.getIndex() + diceResult) % locations.size());
+
     }
 
     public Place getLocationOf(Player player) {
-        return locations[player.getIndex()];
+        return locations.get(player.getIndex());
     }
 }
+
+
+
+
+
+
