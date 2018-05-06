@@ -1,6 +1,6 @@
 package com.yoni.monopoly;
 
-public class Place {
+public class Place{
 
     private final String name;
     private final int cost;
@@ -15,7 +15,8 @@ public class Place {
     private int thirdHouseCost;
     private int forthHouseCost;
     private int hotelCost;
-    public Place(String name, int cost, int rentCost, int seriaID ,int housePrice, int hotelPrice, int firstHouseCost,int secondHouseCost, int thirdHouseCost, int forthHouseCost, int hotelCost) {
+
+    public Place(String name, int cost, int rentCost, int seriaID, int housePrice, int hotelPrice, int firstHouseCost, int secondHouseCost, int thirdHouseCost, int forthHouseCost, int hotelCost) {
         this.name = name;
         this.cost = cost;
         this.rentCost = rentCost;

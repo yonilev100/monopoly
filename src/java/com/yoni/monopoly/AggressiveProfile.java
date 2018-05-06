@@ -11,7 +11,12 @@ public class AggressiveProfile implements Profile {
     public boolean willPlayerRememberToAskForRentMoney(Place place, Player player, int rentCost) {
         return true;
     }
-    public boolean willPlayerBuildAHouse(int seriaID, Player player){
-        return true;
+    @Override
+    public boolean willPlayerBuyAHouse(int seriaID, Player player) {
+        return Math.random()>0.2;
+    }
+    @Override
+    public boolean willPlayerBuyAHotel(int seriaID, Player player){
+        return Math.random()>0.6;
     }
 }

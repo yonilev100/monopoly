@@ -10,6 +10,7 @@ public class Board {
         CardsLoader cardsLoader = new CardsLoader();
         locations = new ArrayList<>(cardsLoader.load());
     }
+
     public int getNumberOfLocations() {
         return locations.size();
     }

@@ -37,7 +37,7 @@ public class CardsLoader {
                         places.add(place);
 
                         System.out.println("LINE = " + line);
-                        if(findID<21){
+                        if (findID < 21) {
                             findID++;
                         }
                     }
@@ -53,11 +53,13 @@ public class CardsLoader {
             throw new RuntimeException(e);
         }
     }
-    public void setHowManyAreInASeria(ArrayList<Place> places){
+
+    public void setHowManyAreInASeria(ArrayList<Place> places) {
         int howManyAreInASeria = 0;
-        for(Place place : places){
-            for(Place placeChecked : places){
-                if(placeChecked.getSeriaID() == place.getSeriaID()){
+        for (Place place : places) {
+            howManyAreInASeria = 0;
+            for (Place placeChecked : places) {
+                if (placeChecked.getSeriaID() == place.getSeriaID()) {
                     howManyAreInASeria++;
                 }
             }
